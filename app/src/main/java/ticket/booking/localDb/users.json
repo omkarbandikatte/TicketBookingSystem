@@ -1,0 +1,29 @@
+[
+    {
+        "user_id":"abcdef",
+        "name":"Omkar",
+        "hashed_password":"123456",
+        "tickets_booked":[
+            {
+                "source":"Banglore",
+                "destination":"Mumbai",
+                "date_of_travel":"2025-12-25T18:32:00Z",
+                "train":{
+                    "train_id":"TRAIN001",
+                    "train_no":"12345",
+                    "seats":[
+                        [1,2,3,4,5],
+                        [6,7,8,9,10],
+                        [11,12,13,14,15],
+                        [16,17,18,19,20]
+                    ],
+                    "stations":{
+                        "Banglore":"13:50:00",
+                        "Jaipur":"13:50:00:",
+                        "Delhi":"13:50:00"
+                    }
+                }
+            }
+        ]
+    }
+]
