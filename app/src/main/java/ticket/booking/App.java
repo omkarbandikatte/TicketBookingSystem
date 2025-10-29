@@ -13,7 +13,7 @@ public class App {
         System.out.println("Welcome to the Ticket Booking System!");
         Scanner scanner = new Scanner(System.in);
         int option = 0;
-        UserBookingService userBookingService;
+        UserBookingService userBookingService = null;
         try{
             userBookingService = new UserBookingService();
         }
@@ -25,11 +25,11 @@ public class App {
             System.out.println("Please select an option:");
             System.out.println("1. Login");
             System.out.println("2. Sign Up");
-            System.out.println("3. Book Ticket");
-            System.out.println("4. View Booked Tickets");
-            System.out.println("5. Cancel Ticket");
-            System.out.println("6. View Train Schedule");
-            System.out.println("7. Exit");
+            System.out.println("3. Fetch Booking");
+            System.out.println("4. Search Trains");
+            System.out.println("5. Book a Seat");
+            System.out.println("6. Cancel Booking");
+            System.out.println("7. Exit App");
 
             option = scanner.nextInt();
             switch(option){
@@ -39,7 +39,14 @@ public class App {
                     String name = scanner.next();
                     System.out.println("Enter your password:");
                     String password = scanner.next();
-                    userBookingService.loginUser();
+                    User loginUser = new User(name, password, userServiceUtil.hashPassword(password), new ArrayList<>(), UUID.randomUUID().toString());
+                    try{
+                        userBookingService = new UserBookingService(loginUser);
+                    }
+                    catch(IOException e){
+                        System.out.println("An error occurred: " + e.getMessage());
+
+                    }
                     break;
                 case 2:
                     // Sign Up
@@ -51,10 +58,31 @@ public class App {
                     userBookingService.signUp(signUpUser);
                     break;
                 case 3:
-                    // Book Ticket
+                    System.out.println("Fetch Booking");
+                    userBookingService.fetchBooking();
                     break;
                 case 4:
-                    // View Booked Tickets
+                    // Search Trains
+                    System.out.println("Search Trains");
+                    System.out.println("Enter the Source station");
+                    String source = scanner.next();
+                    source = source.toLowerCase();
+                    if(source.isEmpty()){
+                        System.out.println("Source station cannot be empty");
+                        break;
+                    }
+                    System.out.println("Enter the Destination Station");
+                    String destination = scanner.next();
+                    destination = destination.toLowerCase();
+                    if(destination.isEmpty()){
+                        System.out.println("Destination station cannot be empty");
+                        break;
+                    }
+                    if(source.equals(destination)){
+                        System.out.println("Source and Destination cannot be the same");
+                        break;
+                    }
+                    List<Train> trains = userBookingService.getTrains(source, destination);
                     break;
                 case 5:
                     // Cancel Ticket

@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import ticket.booking.util.userServiceUtil;
-
+import ticket.booking.entities.Train;
+import java.util.stream.Collectors;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.exc.StreamReadException;
@@ -84,4 +85,13 @@ public class UserBookingService {
         return removed;
     }
 
+    public List<Train> getTrains(String source, String destination) {
+        try {
+            TrainService trainService = new TrainService();
+            trainService.searchTrains(source, destination);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }
