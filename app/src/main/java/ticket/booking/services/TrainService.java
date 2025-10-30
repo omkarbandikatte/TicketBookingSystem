@@ -18,16 +18,21 @@ public class TrainService {
     File trainFile = new File(TRAINS_PATH);
     private ObjectMapper object_mapper = new ObjectMapper();
     private  List<Train> trainList;
+
+    public TrainService() throws StreamReadException, DatabindException, IOException {
+        File trainFile = new File(TRAINS_PATH);  // Path to the JSON File
+        trainList = object_mapper.readValue(trainFile, new TypeReference<List<Train>>() {});
+    }
     public List<Train> searchTrains(String source, String destination){
-        return trainList.stream()
+        return trainList.stream()   
             .filter(train -> validTrain(train, source, destination))
             .collect(Collectors.toList());
     }
 
     public Boolean validTrain(Train train, String source, String destination){
         List<String> stations = train.getStations();
-        int sourceIndex = stations.indexOf(source);
-        int destinationIndex = stations.indexOf(destination);
+        int sourceIndex = stations.indexOf(source.toLowerCase());
+        int destinationIndex = stations.indexOf(destination.toLowerCase());
         return sourceIndex != -1 && destinationIndex != -1 && sourceIndex < destinationIndex;
     }
 }

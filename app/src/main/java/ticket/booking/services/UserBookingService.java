@@ -89,8 +89,8 @@ public class UserBookingService {
         try {
             TrainService trainService = new TrainService();
             trainService.searchTrains(source, destination);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException ex) {
+            return null;
         }
         return null;
     }
