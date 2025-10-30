@@ -11,12 +11,13 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.Objects;
 
 public class TrainService {
 
     private List<Train> trainList;
     private ObjectMapper objectMapper = new ObjectMapper();
-    private static final String TRAIN_DB_PATH = "../localDB/trains.json";
+    private final String TRAIN_DB_PATH = Objects.requireNonNull(getClass().getClassLoader().getResource("localDb/trains.json")).getFile();
 
     public TrainService() throws IOException {
         File trains = new File(TRAIN_DB_PATH);
