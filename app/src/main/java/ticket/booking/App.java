@@ -3,10 +3,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 import ticket.booking.entities.*;
 import ticket.booking.services.*;
-import ticket.booking.util.userServiceUtil;
+import ticket.booking.util.UserServiceUtil;
 import java.util.UUID;
 import java.util.Scanner;
 import java.io.IOException;
+import ticket.booking.services.TrainService;
 
 public class App {
     public static void main(String[] args) {
@@ -39,7 +40,7 @@ public class App {
                     String name = scanner.next();
                     System.out.println("Enter your password:");
                     String password = scanner.next();
-                    User loginUser = new User(name, password, userServiceUtil.hashPassword(password), new ArrayList<>(), UUID.randomUUID().toString());
+                    User loginUser = new User(name, password, UserServiceUtil.hashPassword(password), new ArrayList<>(), UUID.randomUUID().toString());
                     try{
                         userBookingService = new UserBookingService(loginUser);
                     }
@@ -54,12 +55,12 @@ public class App {
                     String name1 = scanner.next();
                     System.out.println("Enter your password:");
                     String password1 = scanner.next();
-                    User signUpUser = new User(name1, password1, userServiceUtil.hashPassword(password1), new ArrayList<>(), UUID.randomUUID().toString());
+                    User signUpUser = new User(name1, password1, UserServiceUtil.hashPassword(password1), new ArrayList<>(), UUID.randomUUID().toString());
                     userBookingService.signUp(signUpUser);
                     break;
                 case 3:
                     System.out.println("Fetch Booking");
-                    userBookingService.fetchBooking();
+                    userBookingService.fetchBookings();
                     break;
                 case 4:
                     // Search Trains
